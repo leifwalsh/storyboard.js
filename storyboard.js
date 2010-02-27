@@ -1,5 +1,5 @@
 ;(function () {
-      Pages = function(elts, callback) {
+      Storyboard = function(elts, callback) {
           this.elts = elts;
           this.callback = callback;
           this.resize();
@@ -9,15 +9,15 @@
           $(window).scroll(function() {closedthis.refindpos();});
       };
 
-      Pages.prototype.cur = function() {
+      Storyboard.prototype.cur = function() {
           return this.current + 1;  // 0-based to 1-based
       };
 
-      Pages.prototype.total = function() {
+      Storyboard.prototype.total = function() {
           return this.positions.length;
       };
 
-      Pages.prototype.refindpos = function() {
+      Storyboard.prototype.refindpos = function() {
           var pos = $(window).attr('scrollX'),
               obj = this,
               last;
@@ -37,7 +37,7 @@
           this.callback(this.cur(), this.total());
       };
 
-      Pages.prototype.doscroll = function() {
+      Storyboard.prototype.doscroll = function() {
           $(window).unbind('scroll');
           var closedthis = this;
           $.scrollTo(this.positions[this.current], 'fast',
@@ -47,22 +47,22 @@
           this.callback(this.cur(), this.total());
       };
 
-      Pages.prototype.goto = function(i) {
+      Storyboard.prototype.goto = function(i) {
           this.current = Math.max(Math.min(i, this.positions.length - 1), 0);
           this.doscroll();
       };
 
-      Pages.prototype.prev = function() {
+      Storyboard.prototype.prev = function() {
           this.current = Math.max(this.current - 1, 0);
           this.doscroll();
       };
 
-      Pages.prototype.next = function() {
+      Storyboard.prototype.next = function() {
           this.current = Math.min(this.current + 1, this.positions.length - 1);
           this.doscroll();
       };
 
-      Pages.prototype.resize = function() {
+      Storyboard.prototype.resize = function() {
           this.positions = $.makeArray();
           var wh = $(window).height(),
               ww = $(window).width(),
